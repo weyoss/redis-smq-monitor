@@ -12,16 +12,15 @@
     <a href="https://lgtm.com/projects/g/weyoss/redis-smq-monitor/context:javascript" rel="nofollow"><img src="https://img.shields.io/lgtm/grade/javascript/github/weyoss/redis-smq-monitor.svg?logo=lgtm&logoWidth=18" alt="Code quality" /></a>
 </p>
 
-`RedisSMQ Monitor` is an application which lets you monitor, debug, and manage your RedisSMQ message queue from your browser
-or by using an HTTP API.
+RedisSMQ Monitor is an application which lets you monitor, debug, and manage [RedisSMQ message queue](https://github.com/weyoss/redis-smq).
 
 It provides the following components:
 
 - [Message Rate plugins](/docs/plugins/message-rate.md). A couple of plugins are required to be registered within the RedisSMQ for viewing the 
   rate at which messages are produced, consumed, or dead-lettered across different queues and consumers.  
-- [An HTTP API](/docs/http-api.md). The `HTTP API` interface allows managing the message queue from your application using the HTTP protocol.
+- [An HTTP API](/docs/http-api.md). The `HTTP API` interface enables you to manage the message queue from your application using the HTTP protocol.
 
-The `monitor` uses and ships with [RedisSMQ Monitor Client](https://github.com/weyoss/redis-smq-monitor-client) as the default Web UI client.
+The monitor uses and ships with [RedisSMQ Monitor Client](https://github.com/weyoss/redis-smq-monitor-client) as a default Web UI client.
 
 ## Configuration
 
@@ -94,8 +93,6 @@ When running the example above, the expected output should be:
 ```text
 [MonitorServer] Going up...
 [MonitorServer] Up and running on 127.0.0.1:3000...
-[MonitorServer] Going down...
-[MonitorServer] Down.
 ```
 
 ### Running the Web UI behind a reverse proxy
@@ -173,4 +170,4 @@ module.exports = {
 
 ## License
 
-[MIT](https://github.com/weyoss/redis-smq/blob/master/LICENSE)
+[MIT](https://github.com/weyoss/redis-smq-monitor/blob/master/LICENSE)
