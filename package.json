@@ -1,0 +1,112 @@
+{
+  "name": "redis-smq-monitor",
+  "version": "7.0.0-rc.4",
+  "description": "RedisSMQ Monitor is an application which lets you monitor, debug, and manage your RedisSMQ message queue",
+  "author": "Weyoss <weyoss@protonmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "redis",
+    "message queue",
+    "message-queue",
+    "message",
+    "queue",
+    "job queue",
+    "job-queue",
+    "jobs",
+    "redis-smq",
+    "priority",
+    "priority queue",
+    "priority-queue",
+    "scheduler",
+    "broker",
+    "message broker",
+    "message-broker"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/weyoss/redis-smq-monitor.git"
+  },
+  "homepage": "https://github.com/weyoss/redis-smq-monitor",
+  "bugs": {
+    "url": "https://github.com/weyoss/redis-smq-monitor/issues"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "dependencies": {
+    "@koa/cors": "3.1.0",
+    "@koa/router": "10.1.1",
+    "@types/bunyan": "1.8.7",
+    "@types/koa-bodyparser": "4.3.5",
+    "bluebird": "3.7.2",
+    "bunyan": "1.8.15",
+    "class-transformer": "0.4.0",
+    "class-validator": "0.13.2",
+    "koa": "2.13.3",
+    "koa-bodyparser": "4.3.0",
+    "lodash": "4.17.21",
+    "redis-smq-monitor-client": "7.0.0-rc.1",
+    "reflect-metadata": "0.1.13",
+    "socket.io": "4.2.0",
+    "stoppable": "1.1.0",
+    "uuid": "8.3.2"
+  },
+  "peerDependencies": {
+    "redis-smq": "7.0.0-rc.3"
+  },
+  "devDependencies": {
+    "@types/bluebird": "3.5.36",
+    "@types/debug": "4.1.7",
+    "@types/jest": "27.0.2",
+    "@types/koa": "2.13.4",
+    "@types/koa__cors": "3.0.3",
+    "@types/koa__router": "8.0.8",
+    "@types/lodash": "4.14.175",
+    "@types/node": "16.10.2",
+    "@types/stoppable": "1.1.1",
+    "@types/supertest": "2.0.11",
+    "@types/uuid": "8.3.1",
+    "@typescript-eslint/eslint-plugin": "4.32.0",
+    "@typescript-eslint/parser": "4.32.0",
+    "coveralls": "3.1.1",
+    "eslint": "7.32.0",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-prettier": "4.0.0",
+    "husky": "7.0.4",
+    "jest": "27.2.4",
+    "lint-staged": "11.1.2",
+    "prettier": "2.4.1",
+    "supertest": "6.1.6",
+    "ts-jest": "27.0.5",
+    "ts-node": "10.2.1",
+    "type-coverage": "2.19.0",
+    "typescript": "4.5"
+  },
+  "scripts": {
+    "build:clean": "rimraf dist",
+    "prebuild": "npm run build:clean",
+    "build": "tsc",
+    "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\"",
+    "lint": "eslint \"{src,tests,types}/**/*.ts\" --fix",
+    "pretest": "npm run build",
+    "test": "NODE_ENV=test jest --runInBand --verbose --collectCoverage",
+    "precoverage": "npm run build",
+    "type-coverage": "type-coverage --strict --at-least 100  --ignore-files \"dist/**/*\"",
+    "prepublishOnly": "npm run build",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.(ts)": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ],
+    "*.(json|js)": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "engineStrict": true,
+  "engines": {
+    "node": "12 || ^14 || ^16"
+  }
+}

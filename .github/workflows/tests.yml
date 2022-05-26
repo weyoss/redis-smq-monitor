@@ -1,0 +1,63 @@
+name: tests
+
+#on: [push, pull_request]
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  tests:
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+
+        node:
+          - 12
+          - 14
+          - 16
+
+        redis:
+          - 2.6.17
+          - 3
+          - 4
+          - 5
+          - 6
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+
+      - name: Use Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Start Redis ${{ matrix.redis }}
+        uses: weyoss/redis-github-action@25915a901815971e3f91b3ae7010ab9fdca79392
+        with:
+          redis-version: ${{ matrix.redis }}
+
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run type coverage
+        run: npm run type-coverage
+
+      - name: Run tests and collect code coverage
+        run: npm test
+        if: success()
+
+      - name: Upload code coverage
+        uses: codecov/codecov-action@v2
+        if: success()
