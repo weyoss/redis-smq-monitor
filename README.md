@@ -7,20 +7,30 @@
 
 <p>
     <a href="https://github.com/weyoss/redis-smq-monitor/actions/workflows/tests.yml"><img src="https://github.com/weyoss/redis-smq-monitor/actions/workflows/tests.yml/badge.svg" alt="Tests" style="max-width:100%;" /></a>
-    <a href="https://npmjs.org/package/redis-smq" rel="nofollow"><img src="https://img.shields.io/npm/v/redis-smq.svg" alt="NPM version" /></a>
+    <a href="https://npmjs.org/package/redis-smq-monitor" rel="nofollow"><img src="https://img.shields.io/npm/v/redis-smq-monitor.svg" alt="NPM version" /></a>
     <a href="https://codecov.io/github/weyoss/redis-smq-monitor?branch=master" rel="nofollow"><img src="https://img.shields.io/codecov/c/github/weyoss/redis-smq-monitor" alt="Coverage Status" /></a>
     <a href="https://lgtm.com/projects/g/weyoss/redis-smq-monitor/context:javascript" rel="nofollow"><img src="https://img.shields.io/lgtm/grade/javascript/github/weyoss/redis-smq-monitor.svg?logo=lgtm&logoWidth=18" alt="Code quality" /></a>
 </p>
 
 RedisSMQ Monitor is an application which lets you monitor, debug, and manage [RedisSMQ message queue](https://github.com/weyoss/redis-smq).
 
-It provides the following components:
-
-- [Message Rate plugins](/docs/plugins/message-rate.md). A couple of plugins are required to be registered within the RedisSMQ for viewing the 
-  rate at which messages are produced, consumed, or dead-lettered across different queues and consumers.  
-- [An HTTP API](/docs/http-api.md). The `HTTP API` interface enables you to manage the message queue from your application using the HTTP protocol.
-
 The monitor uses and ships with [RedisSMQ Monitor Client](https://github.com/weyoss/redis-smq-monitor-client) as a default Web UI client.
+
+[An HTTP API](/docs/http-api.md) is also provided. The `HTTP API` interface enables you to manage the message queue from your application using the HTTP protocol.
+
+## Installation
+
+```shell
+npm install redis-smq-monitor --save
+```
+
+`redis-smq-monitor` requires `redis-smq` to be installed separately. 
+
+If not installed, do not forget to install a compatible `redis-smq` package as well:
+
+```shell
+npm install redis-smq --save
+```
 
 ## Configuration
 
@@ -71,13 +81,45 @@ module.exports = {
 
 - `server.port` *(Integer): Optional.* Port of the monitor server. By default, `7210`.
 
-- `server.basePath` *(String): Optional.* Let the Web UI know that it is running behind a reverse proxy server and use a base path (for example `/monitor`) to render links and redirects correctly. See [Running the Web UI behind a reverse proxy](#running-the-web-ui-behind-a-reverse-proxy).
+- `server.basePath` *(String): Optional.* Let the monitor know that it is running behind a reverse proxy server and use a base path (for example `/monitor`) to render links and redirects correctly. See [Running the RedisSMQ Monitor behind a reverse proxy](#running-redissmq-monitor-behind-a-reverse-proxy).
 
 - `server.socketOpts` *(Object): Optional.* WebSocket parameters for `socket.io`. See [https://socket.io/docs/v4/server-api/#new-serverport-options](https://socket.io/docs/v4/server-api/#new-serverport-options) for more details.
 
 ## Usage
 
-The Web UI can be launched and used as shown in the example bellow:
+Before launching the monitor server, you should first configure RedisSMQ consumers and producers to make use of the monitor plugins.
+
+RedisSMQ Monitor comes with a couple of plugins that you need to register within RedisSMQ for having such features as:
+
+- Real-time message rates:
+  - Overall acknowledged/dead-lettered/published message rates
+  - Acknowledged/dead-lettered/published message rates per queue
+  - Acknowledged/dead-lettered/published message rates per queue/consumer
+- Historical time series graphs of message rate with the ability to navigate through the timeline
+
+### Plugin Registration
+
+Plugin registration is system-wide and should be done when configuring RedisSMQ. 
+
+RedisSMQ allows a plugin to be registered **before** starting a consumer or a producer.
+
+The monitor provides:
+
+- `ConsumerMessageRatePlugin` for handling consumers message rates.
+- `ProducerMessageRatePlugin` for handling producers message rates.
+
+```javascript
+const { registerConsumerPlugin, registerProducerPlugin } = require('redis-smq');
+const { ConsumerMessageRatePlugin, ProducerMessageRatePlugin } = require('redis-smq-monitor');
+
+registerConsumerPlugin(ConsumerMessageRatePlugin);
+registerProducerPlugin(ProducerMessageRatePlugin);
+```
+
+### Launching the monitor application
+
+Once your consumers/producers are now using the plugins, the monitor can be launched from any other process or host 
+(as well as the host can access the Redis server) and used as shown in the example bellow:
 
 ```javascript
 'use strict';
@@ -85,21 +127,14 @@ const config = require('./config');
 const { MonitorServer } = require('redis-smq-monitor');
 
 const monitorServer = MonitorServer.createInstance(config);
-await monitorServer.listen();
+monitorServer.listen();
 ```
 
-When running the example above, the expected output should be:
+### Running RedisSMQ Monitor behind a reverse proxy
 
-```text
-[MonitorServer] Going up...
-[MonitorServer] Up and running on 127.0.0.1:3000...
-```
+To run the monitor behind a reverse proxy server you need first to configure correctly your server.
 
-### Running the Web UI behind a reverse proxy
-
-To run the Web UI behind a reverse proxy server you need first to configure correctly your server.
-
-Depending on your setup, some extra steps may be required. The easiest way to start with is to serve the Web UI using a transparent proxy.
+Depending on your setup, some extra steps may be required. The easiest way to start with is to serve the monitor using a transparent proxy.
 
 I am using Nginx as a proxy server, but you can use any other server depending on your preferences.
 
@@ -156,15 +191,17 @@ server {
 
 Additionally, you need to configure the basePath.
 
-Sample RedisSMQ configuration:
+Sample configuration:
 
 ```javascript
 'use strict';
 
 module.exports = {
-  host: '127.0.0.1',
-  port: 3000,
-  basePath: '/monitor' // <-- using the base path
+  server: {
+    host: '127.0.0.1',
+    port: 3000,
+    basePath: '/monitor' // <-- using the base path
+  }
 };
 ```
 
