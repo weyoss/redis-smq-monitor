@@ -38,8 +38,8 @@ export class SortedSetTimeSeries extends TimeSeries<TTimeSeriesParams> {
     } else {
       this.redisClient.zrangebyscorewithscores(
         this.key,
-        to,
         from,
+        to,
         (err, reply) => {
           if (err) cb(err);
           else {
