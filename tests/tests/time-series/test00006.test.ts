@@ -11,12 +11,12 @@ test('SortedSetTimeSeries: Case 1', async () => {
       retentionTimeInSeconds: 20,
     }),
   );
-  const multi = redisClient.multi();
+  const multi = promisifyAll(redisClient.multi());
   const ts = TimeSeries.getCurrentTimestamp();
   sortedSetTimeSeries.add(ts, 100, multi);
   sortedSetTimeSeries.add(ts + 3, 56, multi);
   sortedSetTimeSeries.add(ts + 10, 70, multi);
-  await redisClient.execMultiAsync(multi);
+  await multi.execAsync();
   const range = await sortedSetTimeSeries.getRangeAsync(ts - 20, ts + 20);
 
   expect(range.length).toBe(40);

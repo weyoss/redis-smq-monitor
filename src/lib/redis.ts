@@ -1,13 +1,13 @@
-import { RedisClientName } from 'redis-smq-common/dist/types';
-import { promisifyAll } from 'bluebird';
-import { RedisClient } from 'redis-smq-common';
+import { RedisClientName, TRedisConfig } from 'redis-smq-common/dist/types';
+import { createClientInstance } from 'redis-smq-common';
 import { TConfig } from '../../types';
+import { promisify } from 'bluebird';
 
-const RedisClientAsync = promisifyAll(RedisClient);
+const createClientInstanceAsync = promisify(createClientInstance);
 
 export async function createRedisInstance(config: TConfig) {
-  const redis = config.redis ?? {
+  const redis: TRedisConfig = config.redis ?? {
     client: RedisClientName.REDIS,
   };
-  return RedisClientAsync.getNewInstanceAsync(redis);
+  return createClientInstanceAsync(redis);
 }

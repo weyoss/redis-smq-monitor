@@ -1,22 +1,22 @@
 import { TimeSeries } from './time-series';
 import { TTimeSeriesParams, TTimeSeriesRange } from '../../../../types';
-import { ICallback, TRedisClientMulti } from 'redis-smq-common/dist/types';
+import { ICallback, IRedisClientMulti } from 'redis-smq-common/dist/types';
 import { errors } from 'redis-smq-common';
 
 export class SortedSetTimeSeries extends TimeSeries<TTimeSeriesParams> {
   add(
     ts: number,
     value: number,
-    mixed: ICallback<void> | TRedisClientMulti,
+    mixed: ICallback<void> | IRedisClientMulti,
   ): void {
-    const process = (multi: TRedisClientMulti) => {
+    const process = (multi: IRedisClientMulti) => {
       multi.zadd(this.key, ts, `${value}:${ts}`);
-      this.expireAfter && multi.expire(this.key, this.expireAfter);
+      this.expireAfter && multi.pexpire(this.key, this.expireAfter * 1000);
     };
     if (typeof mixed === 'function') {
       const multi = this.redisClient.multi();
       process(multi);
-      this.redisClient.execMulti(multi, (err) => mixed(err));
+      multi.exec((err) => mixed(err));
     } else process(mixed);
   }
 

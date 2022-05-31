@@ -1,7 +1,7 @@
 import { EventEmitter } from 'events';
 import { errors, RedisClient } from 'redis-smq-common';
 import { TTimeSeriesParams, TTimeSeriesRange } from '../../../../types';
-import { ICallback, TRedisClientMulti } from 'redis-smq-common/dist/types';
+import { ICallback, IRedisClientMulti } from 'redis-smq-common/dist/types';
 
 export abstract class TimeSeries<
   TimeSeriesParams extends TTimeSeriesParams,
@@ -60,7 +60,7 @@ export abstract class TimeSeries<
   abstract add(
     ts: number,
     value: number,
-    cb: ICallback<void> | TRedisClientMulti,
+    cb: ICallback<void> | IRedisClientMulti,
   ): void;
 
   abstract getRange(

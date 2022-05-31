@@ -44,7 +44,7 @@ export class ProducerMessageRateWriter extends MessageRateWriter<IProducerMessag
             this.queuePublishedTimeSeries[key].add(ts, value, multi);
           }
         }
-        this.redisClient.execMulti(multi, () => cb());
+        multi.exec(() => cb());
       } else cb();
     } else cb();
   }

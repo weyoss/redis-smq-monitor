@@ -12,12 +12,12 @@ test('HashTimeSeries: Case 1', async () => {
       expireAfterInSeconds: 20,
     }),
   );
-  const multi = redisClient.multi();
+  const multi = promisifyAll(redisClient.multi());
   const ts = TimeSeries.getCurrentTimestamp();
   hashTimeSeries.add(ts, 100, multi);
   hashTimeSeries.add(ts + 3, 56, multi);
   hashTimeSeries.add(ts + 10, 70, multi);
-  await redisClient.execMultiAsync(multi);
+  await multi.execAsync();
   const range = await hashTimeSeries.getRangeAsync(ts - 20, ts + 20);
 
   expect(range.length).toBe(40);

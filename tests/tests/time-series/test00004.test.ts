@@ -13,12 +13,12 @@ test('HashTimeSeries: Case 2', async () => {
       windowSizeInSeconds: 60,
     }),
   );
-  const multi = redisClient.multi();
+  const multi = promisifyAll(redisClient.multi());
   const ts = TimeSeries.getCurrentTimestamp();
   for (let i = 0; i < 10; i += 1) {
     hashTimeSeries.add(ts + i, i, multi);
   }
-  await redisClient.execMultiAsync(multi);
+  await multi.execAsync();
 
   const range1 = await hashTimeSeries.getRangeAsync(ts, ts + 10);
 

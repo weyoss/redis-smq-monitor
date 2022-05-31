@@ -1,7 +1,7 @@
 import { redisKeys } from '../../../common/redis-keys/redis-keys';
 import { SortedSetTimeSeries } from '../common/sorted-set-time-series';
 import { RedisClient } from 'redis-smq-common';
-import { TRedisClientMulti } from 'redis-smq-common/dist/types';
+import { IRedisClientMulti } from 'redis-smq-common/dist/types';
 
 export const ConsumerDeadLetteredTimeSeries = (
   redisClient: RedisClient,
@@ -14,7 +14,7 @@ export const ConsumerDeadLetteredTimeSeries = (
 };
 
 export const deleteConsumerDeadLetteredTimeSeries = (
-  multi: TRedisClientMulti,
+  multi: IRedisClientMulti,
   consumerId: string,
 ) => {
   const { keyRateConsumerDeadLettered } = redisKeys.getConsumerKeys(consumerId);

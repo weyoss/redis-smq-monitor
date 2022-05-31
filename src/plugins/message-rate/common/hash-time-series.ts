@@ -1,6 +1,6 @@
 import { TimeSeries } from './time-series';
 import { IHashTimeSeriesParams, TTimeSeriesRange } from '../../../../types';
-import { ICallback, TRedisClientMulti } from 'redis-smq-common/dist/types';
+import { ICallback, IRedisClientMulti } from 'redis-smq-common/dist/types';
 import { errors, RedisClient } from 'redis-smq-common';
 
 export class HashTimeSeries extends TimeSeries<IHashTimeSeriesParams> {
@@ -15,11 +15,11 @@ export class HashTimeSeries extends TimeSeries<IHashTimeSeriesParams> {
   add(
     ts: number,
     value: number,
-    mixed: ICallback<void> | TRedisClientMulti,
+    mixed: ICallback<void> | IRedisClientMulti,
   ): void {
-    const process = (multi: TRedisClientMulti) => {
+    const process = (multi: IRedisClientMulti) => {
       multi.hincrby(this.key, String(ts), value);
-      multi.zadd(this.indexKey, ts, ts);
+      multi.zadd(this.indexKey, ts, `${ts}`);
       if (this.expireAfter) {
         multi.expire(this.key, this.expireAfter);
         multi.expire(this.indexKey, this.expireAfter);
@@ -28,7 +28,7 @@ export class HashTimeSeries extends TimeSeries<IHashTimeSeriesParams> {
     if (typeof mixed === 'function') {
       const multi = this.redisClient.multi();
       process(multi);
-      this.redisClient.execMulti(multi, (err) => mixed(err));
+      multi.exec((err) => mixed(err));
     } else process(mixed);
   }
 
@@ -43,9 +43,9 @@ export class HashTimeSeries extends TimeSeries<IHashTimeSeriesParams> {
         if (err) cb(err);
         else if (reply && reply.length) {
           const multi = this.redisClient.multi();
-          multi.zrem(this.indexKey, ...reply);
-          multi.hdel(this.key, ...reply);
-          this.redisClient.execMulti(multi, (err) => cb(err));
+          multi.zrem(this.indexKey, reply);
+          multi.hdel(this.key, reply);
+          multi.exec((err) => cb(err));
         } else cb();
       },
     );

@@ -8,7 +8,7 @@ import { MessageRateWriter } from '../common/message-rate-writer';
 import { TQueueParams } from 'redis-smq/dist/types';
 import { IConsumerMessageRateFields } from '../../../../types';
 import { RedisClient } from 'redis-smq-common';
-import { ICallback, TRedisClientMulti } from 'redis-smq-common/dist/types';
+import { ICallback, IRedisClientMulti } from 'redis-smq-common/dist/types';
 
 export class ConsumerMessageRateWriter extends MessageRateWriter<IConsumerMessageRateFields> {
   protected redisClient: RedisClient;
@@ -64,7 +64,7 @@ export class ConsumerMessageRateWriter extends MessageRateWriter<IConsumerMessag
     rates: IConsumerMessageRateFields,
     cb: ICallback<void>,
   ): void {
-    let multi: TRedisClientMulti | null = null;
+    let multi: IRedisClientMulti | null = null;
     for (const field in rates) {
       multi = multi ?? this.redisClient.multi();
       const value: number = rates[field];
@@ -80,7 +80,7 @@ export class ConsumerMessageRateWriter extends MessageRateWriter<IConsumerMessag
         }
       }
     }
-    if (multi) this.redisClient.execMulti(multi, () => cb());
+    if (multi) multi.exec(() => cb());
     else cb();
   }
 }
