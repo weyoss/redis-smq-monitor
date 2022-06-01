@@ -4,13 +4,13 @@ import { TQueueParams } from 'redis-smq/dist/types';
 const keySegmentSeparator = ':';
 
 // Key prefix
-const nsPrefix = 'redis-smq-monitor-server-v700-rc0';
+const nsPrefix = 'redis-smq-monitor-v700rc0';
 
 // Namespaces
 const globalNamespace = 'global';
 
 enum ERedisKey {
-  KEY_LOCK_MONITOR_SERVER_WORKERS,
+  KEY_LOCK_MONITOR_WORKERS,
   KEY_RATE_CONSUMER_ACKNOWLEDGED,
   KEY_RATE_QUEUE_ACKNOWLEDGED,
   KEY_RATE_QUEUE_ACKNOWLEDGED_INDEX,
@@ -44,7 +44,7 @@ function makeNamespacedKeys<T extends Record<string, ERedisKey>>(
 export const redisKeys = {
   getMainKeys() {
     const mainKeys = {
-      keyLockMonitorServerWorkers: ERedisKey.KEY_LOCK_MONITOR_SERVER_WORKERS,
+      keyLockMonitorWorkers: ERedisKey.KEY_LOCK_MONITOR_WORKERS,
       keyRateGlobalDeadLettered: ERedisKey.KEY_RATE_GLOBAL_DEAD_LETTERED,
       keyRateGlobalAcknowledged: ERedisKey.KEY_RATE_GLOBAL_ACKNOWLEDGED,
       keyRateGlobalPublished: ERedisKey.KEY_RATE_GLOBAL_PUBLISHED,

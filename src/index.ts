@@ -143,10 +143,10 @@ export class MonitorServer {
   }
 
   protected async runWorkers(): Promise<void> {
-    const { keyLockMonitorServerWorkers } = redisKeys.getMainKeys();
+    const { keyLockMonitorWorkers } = redisKeys.getMainKeys();
     this.workerRunner = new WorkerRunner(
       this.getRedisClient(),
-      keyLockMonitorServerWorkers,
+      keyLockMonitorWorkers,
       new WorkerPool(),
       this.logger,
     );
