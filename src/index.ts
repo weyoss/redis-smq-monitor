@@ -137,9 +137,12 @@ export class MonitorServer {
   protected async subscribe(socketIO: SocketIO): Promise<void> {
     this.subscribeClient = await createRedisInstance(this.config);
     this.subscribeClient.psubscribe('stream*');
-    this.subscribeClient.on('pmessage', (pattern, channel, message) => {
-      socketIO.emit(channel, JSON.parse(message));
-    });
+    this.subscribeClient.on(
+      'pmessage',
+      (pattern: string, channel: string, message: string) => {
+        socketIO.emit(channel, JSON.parse(message));
+      },
+    );
   }
 
   protected async runWorkers(): Promise<void> {

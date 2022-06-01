@@ -16,7 +16,7 @@ test('WebsocketMainStreamWorker: Case 2', async () => {
   subscribeClient.subscribe('streamMain');
 
   const json = await new Promise<TWebsocketMainStreamPayload>((resolve) => {
-    subscribeClient.on('message', (channel, message) => {
+    subscribeClient.on('message', (channel: string, message: string) => {
       const json: TWebsocketMainStreamPayload = JSON.parse(message);
       resolve(json);
     });

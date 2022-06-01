@@ -27,7 +27,7 @@ export async function listenForWebsocketStreamEvents<
   const subscribeClient = await getRedisInstance();
   subscribeClient.subscribe(streamName);
   const data: { ts: number; payload: TPayload }[] = [];
-  subscribeClient.on('message', (channel, message) => {
+  subscribeClient.on('message', (channel: string, message: string) => {
     const payload: TPayload = JSON.parse(message);
     data.push({ ts: Date.now(), payload });
   });
