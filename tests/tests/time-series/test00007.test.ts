@@ -1,7 +1,7 @@
 import { delay, promisifyAll } from 'bluebird';
 import { getRedisInstance } from '../../common/redis-clients';
-import { TimeSeries } from '../../../src/plugins/message-rate/common/time-series';
-import { SortedSetTimeSeries } from '../../../src/plugins/message-rate/common/sorted-set-time-series';
+import { TimeSeries } from '../../../src/event-listeners/message-rate/common/time-series';
+import { SortedSetTimeSeries } from '../../../src/event-listeners/message-rate/common/sorted-set-time-series';
 import { startTimeSeriesWorker } from '../../common/time-series-clean-up-worker';
 
 test('SortedSetTimeSeries: Case 2', async () => {

@@ -1,28 +1,33 @@
-import { TQueueParams, IPlugin } from 'redis-smq/dist/types';
+import {
+  TQueueParams,
+  IEventListener,
+  IEventProvider,
+} from 'redis-smq/dist/types';
 import { ConsumerMessageRate } from './consumer/consumer-message-rate';
 import { ConsumerMessageRateWriter } from './consumer/consumer-message-rate-writer';
-import { Consumer, events } from 'redis-smq';
+import { events } from 'redis-smq';
 import { RedisClient } from 'redis-smq-common';
 import { ICallback } from 'redis-smq-common/dist/types';
 
-export class ConsumerMessageRatePlugin implements IPlugin {
+export class ConsumerEventListener implements IEventListener {
   protected consumerMessageRate: ConsumerMessageRate;
 
   constructor(
     redisClient: RedisClient,
+    consumerId: string,
     queue: TQueueParams,
-    consumer: Consumer,
+    eventProvider: IEventProvider,
   ) {
     const writer = new ConsumerMessageRateWriter(
       redisClient,
       queue,
-      consumer.getId(),
+      consumerId,
     );
     this.consumerMessageRate = new ConsumerMessageRate(writer);
-    consumer.on(events.MESSAGE_ACKNOWLEDGED, () =>
+    eventProvider.on(events.MESSAGE_ACKNOWLEDGED, () =>
       this.consumerMessageRate.incrementAcknowledged(),
     );
-    consumer.on(events.MESSAGE_DEAD_LETTERED, () =>
+    eventProvider.on(events.MESSAGE_DEAD_LETTERED, () =>
       this.consumerMessageRate.incrementDeadLettered(),
     );
   }

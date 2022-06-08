@@ -1,8 +1,8 @@
 import { promisifyAll } from 'bluebird';
 import { TimeSeriesRequestDTO } from '../common/dto/time-series/time-series-request.DTO';
-import { GlobalAcknowledgedTimeSeries } from '../plugins/message-rate/consumer/global-acknowledged-time-series';
-import { GlobalDeadLetteredTimeSeries } from '../plugins/message-rate/consumer/global-dead-lettered-time-series';
-import { GlobalPublishedTimeSeries } from '../plugins/message-rate/producer/global-published-time-series';
+import { GlobalAcknowledgedTimeSeries } from '../event-listeners/message-rate/consumer/global-acknowledged-time-series';
+import { GlobalDeadLetteredTimeSeries } from '../event-listeners/message-rate/consumer/global-dead-lettered-time-series';
+import { GlobalPublishedTimeSeries } from '../event-listeners/message-rate/producer/global-published-time-series';
 import { RedisClient } from 'redis-smq-common';
 import { TRegistry } from '../lib/registry';
 

@@ -5,6 +5,7 @@ import {
   TLoggerConfig,
   TRedisConfig,
 } from 'redis-smq-common/dist/types';
+import { ConsumerEventListener, ProducerEventListener } from '../..';
 
 const redisHost = process.env.REDIS_HOST || '127.0.0.1';
 const redisPort = Number(process.env.REDIS_PORT) || 6379;
@@ -28,6 +29,10 @@ export const config: IRedisSMQConfig = {
   namespace: 'testing',
   messages: {
     store: true,
+  },
+  eventListeners: {
+    consumerEventListeners: [ConsumerEventListener],
+    producerEventListeners: [ProducerEventListener],
   },
 };
 

@@ -1,7 +1,7 @@
 import { promisifyAll } from 'bluebird';
 import { getRedisInstance } from '../../common/redis-clients';
-import { HashTimeSeries } from '../../../src/plugins/message-rate/common/hash-time-series';
-import { TimeSeries } from '../../../src/plugins/message-rate/common/time-series';
+import { HashTimeSeries } from '../../../src/event-listeners/message-rate/common/hash-time-series';
+import { TimeSeries } from '../../../src/event-listeners/message-rate/common/time-series';
 
 test('HashTimeSeries: Case 1', async () => {
   const redisClient = await getRedisInstance();

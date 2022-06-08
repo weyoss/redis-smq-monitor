@@ -1,8 +1,8 @@
 import { QueueTimeSeriesRequestDTO } from '../common/dto/queues/queue-time-series-request.DTO';
 import { promisifyAll } from 'bluebird';
-import { QueueAcknowledgedTimeSeries } from '../plugins/message-rate/consumer/queue-acknowledged-time-series';
-import { QueueDeadLetteredTimeSeries } from '../plugins/message-rate/consumer/queue-dead-lettered-time-series';
-import { QueuePublishedTimeSeries } from '../plugins/message-rate/producer/queue-published-time-series';
+import { QueueAcknowledgedTimeSeries } from '../event-listeners/message-rate/consumer/queue-acknowledged-time-series';
+import { QueueDeadLetteredTimeSeries } from '../event-listeners/message-rate/consumer/queue-dead-lettered-time-series';
+import { QueuePublishedTimeSeries } from '../event-listeners/message-rate/producer/queue-published-time-series';
 import { RedisClient } from 'redis-smq-common';
 import { TRegistry } from '../lib/registry';
 

@@ -1,8 +1,8 @@
 import { promisifyAll } from 'bluebird';
 import { GetConsumerAcknowledgedRequestDTO } from '../controllers/api/consumers/consumer/time-series/get-consumer-acknowledged/get-consumer-acknowledged.request.DTO';
 import { GetConsumerDeadLetteredRequestDTO } from '../controllers/api/consumers/consumer/time-series/get-consumer-dead-lettered/get-consumer-dead-lettered.request.DTO';
-import { ConsumerDeadLetteredTimeSeries } from '../plugins/message-rate/consumer/consumer-dead-lettered-time-series';
-import { ConsumerAcknowledgedTimeSeries } from '../plugins/message-rate/consumer/consumer-acknowledged-time-series';
+import { ConsumerDeadLetteredTimeSeries } from '../event-listeners/message-rate/consumer/consumer-dead-lettered-time-series';
+import { ConsumerAcknowledgedTimeSeries } from '../event-listeners/message-rate/consumer/consumer-acknowledged-time-series';
 import { RedisClient } from 'redis-smq-common';
 import { TRegistry } from '../lib/registry';
 

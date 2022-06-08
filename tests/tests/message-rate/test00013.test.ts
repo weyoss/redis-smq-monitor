@@ -1,7 +1,7 @@
 import { promisifyAll } from 'bluebird';
 import { IProducerMessageRateFields } from '../../../types';
-import { ProducerMessageRateWriter } from '../../../src/plugins/message-rate/producer/producer-message-rate-writer';
-import { ProducerMessageRate } from '../../../src/plugins/message-rate/producer/producer-message-rate';
+import { ProducerMessageRateWriter } from '../../../src/event-listeners/message-rate/producer/producer-message-rate-writer';
+import { ProducerMessageRate } from '../../../src/event-listeners/message-rate/producer/producer-message-rate';
 import { getRedisInstance } from '../../common/redis-clients';
 
 test('ProducerMessageRate/ProducerMessageRateWriter: case 2', async () => {

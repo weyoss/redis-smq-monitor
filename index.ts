@@ -1,3 +1,3 @@
 export { MonitorServer } from './src';
-export { ConsumerMessageRatePlugin } from './src/plugins/message-rate/consumer-message-rate-plugin';
-export { ProducerMessageRatePlugin } from './src/plugins/message-rate/producer-message-rate-plugin';
+export { ConsumerEventListener } from './src/event-listeners/message-rate/consumer-event-listener';
+export { ProducerEventListener } from './src/event-listeners/message-rate/producer-event-listener';
