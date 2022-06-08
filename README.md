@@ -87,9 +87,9 @@ module.exports = {
 
 ## Usage
 
-Before launching the monitor server, you should first configure RedisSMQ consumers and producers to make use of the monitor plugins.
+Before launching the monitor server, you should first configure RedisSMQ to use the monitor event listeners. 
 
-RedisSMQ Monitor comes with a couple of plugins that you need to register within RedisSMQ for having such features as:
+RedisSMQ Monitor comes with a couple of event listeners that you need to register within RedisSMQ for having such features as:
 
 - Real-time message rates:
   - Overall acknowledged/dead-lettered/published message rates
@@ -97,24 +97,26 @@ RedisSMQ Monitor comes with a couple of plugins that you need to register within
   - Acknowledged/dead-lettered/published message rates per queue/consumer
 - Historical time series graphs of message rate with the ability to navigate through the timeline
 
-### Plugin Registration
-
-Plugin registration is system-wide and should be done when configuring RedisSMQ. 
-
-RedisSMQ allows a plugin to be registered **before** starting a consumer or a producer.
+### Monitor Event Listeners
 
 The monitor provides:
 
-- `ConsumerMessageRatePlugin` for handling consumers message rates.
-- `ProducerMessageRatePlugin` for handling producers message rates.
+- `ConsumerEventListener` for handling consumers message rates.
+- `ProducerEventListener` for handling producers message rates.
 
 ```javascript
-const { registerConsumerPlugin, registerProducerPlugin } = require('redis-smq');
-const { ConsumerMessageRatePlugin, ProducerMessageRatePlugin } = require('redis-smq-monitor');
+const { ConsumerEventListener, ProducerEventListener } = require('redis-smq-monitor');
 
-registerConsumerPlugin(ConsumerMessageRatePlugin);
-registerProducerPlugin(ProducerMessageRatePlugin);
+const config = {
+  eventListeners: {
+    consumerEventListeners: [ConsumerEventListener],
+    producerEventListeners: [ProducerEventListener],
+  },
+}
 ```
+
+See [RedisSMQ/Configuration](https://github.com/weyoss/redis-smq/blob/master/docs/configuration.md) for more details.
+See [RedisSMQ/Event Listeners](https://github.com/weyoss/redis-smq/blob/master/docs/event-listeners.md) for more details.
 
 ### Launching the monitor application
 
