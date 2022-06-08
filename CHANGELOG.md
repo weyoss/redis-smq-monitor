@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 7.0.0-rc.4 (2022-06-09)
+
+* Update docs (9939159)
+* Bump up redis-smq to v7.0.0-rc.8, refactor (81bb8d3)
+* Fix type coverage (0dbe132)
+
 ## 7.0.0-rc.3 (2022-06-01)
 
 * Update redis-keys.ts (70851b9)
