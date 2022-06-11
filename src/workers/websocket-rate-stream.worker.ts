@@ -217,10 +217,7 @@ export class WebsocketRateStreamWorker extends Worker {
   };
 
   work = (cb: ICallback<void>): void => {
-    if (!this.timestamp)
-      // in secs
-      this.timestamp = Math.ceil(Date.now() / 1000);
-    else this.timestamp += 1;
+    this.timestamp = Math.ceil(Date.now() / 1000);
     async.waterfall(
       [
         this.handleGlobalTimeSeries,
