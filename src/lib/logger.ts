@@ -5,7 +5,7 @@ import { ICompatibleLogger, TLoggerConfig } from 'redis-smq-common/dist/types';
 function getConfigParams(config: TConfig): TLoggerConfig {
   return (
     config.logger ?? {
-      enabled: true,
+      enabled: false,
     }
   );
 }
