@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## 7.0.0-rc.5 (2022-06-12)
+
+* Add examples (965c2e4)
+* Disable logging by default (258c233)
+* Clean up WebsocketRateStreamWorker (9b1ae86)
+* Fix package-lock.json (a4978a9)
+* Add .codecov.yml (ea93fdf)
+* 7.0.0-rc.4 (5bf5923)
+* Update docs (9939159)
+* Bump up redis-smq to v7.0.0-rc.8, refactor (81bb8d3)
+* Fix type coverage (0dbe132)
+
 ## 7.0.0-rc.4 (2022-06-09)
 
 * Update docs (9939159)
