@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 7.0.1 (2022-06-20)
+
+* Bump up redis-smq to v7.0.1 (ad1ed80)
+* Merge branch 'master' of https://github.com/weyoss/redis-smq-monitor (7cf4268)
+* Bump up redis-smq-monitor-client to v7.0.0 (322a385)
+
 ## 7.0.0-rc.5 (2022-06-12)
 
 * Add examples (965c2e4)
