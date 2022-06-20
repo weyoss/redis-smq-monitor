@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 7.0.2 (2022-06-20)
+
+* Fix peer dependencies (502c88a)
+
 ## 7.0.1 (2022-06-20)
 
 * Bump up redis-smq to v7.0.1 (ad1ed80)
