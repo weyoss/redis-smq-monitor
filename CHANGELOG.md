@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 7.0.3 (2022-06-28)
+
+* Fix type-coverage errors (758e692)
+* Bump up redis-smq-monitor-client to v7.0.3 (0bd6815)
+* Bump up socket.io to v4.4.1 (bd86e5c)
+
 ## 7.0.2 (2022-06-20)
 
 * Fix peer dependencies (502c88a)
