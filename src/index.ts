@@ -40,6 +40,15 @@ import WebsocketHeartbeatStreamWorker from './workers/websocket-heartbeat-stream
 import WebsocketMainStreamWorker from './workers/websocket-main-stream.worker';
 import WebsocketOnlineStreamWorker from './workers/websocket-online-stream.worker';
 import WebsocketRateStreamWorker from './workers/websocket-rate-stream.worker';
+import { DefaultEventsMap } from 'socket.io/dist/typed-events';
+
+// Fixing type-coverage errors and using [unknown] instead of [any]
+type TSocketIO = SocketIO<
+  DefaultEventsMap,
+  DefaultEventsMap,
+  DefaultEventsMap,
+  unknown
+>;
 
 export class MonitorServer {
   protected static instance: MonitorServer | null = null;
@@ -50,7 +59,7 @@ export class MonitorServer {
   protected workerRunner: WorkerRunner | null = null;
   protected application: {
     app: Koa;
-    socketIO: SocketIO;
+    socketIO: TSocketIO;
     httpServer: ReturnType<typeof stoppable>;
   } | null = null;
   protected redisClient: RedisClient | null = null;
@@ -120,7 +129,7 @@ export class MonitorServer {
     app.use(router.routes());
     app.use(router.allowedMethods());
     const httpServer = stoppable(createServer(app.callback()));
-    const socketIO = new SocketIO(httpServer, {
+    const socketIO: TSocketIO = new SocketIO(httpServer, {
       ...socketOpts,
       cors: {
         origin: '*',
@@ -134,7 +143,7 @@ export class MonitorServer {
     return this.application;
   }
 
-  protected async subscribe(socketIO: SocketIO): Promise<void> {
+  protected async subscribe(socketIO: TSocketIO): Promise<void> {
     this.subscribeClient = await createRedisInstance(this.config);
     this.subscribeClient.psubscribe('stream*');
     this.subscribeClient.on(
