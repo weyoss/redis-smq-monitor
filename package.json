@@ -1,6 +1,6 @@
 {
   "name": "redis-smq-monitor",
-  "version": "7.0.3",
+  "version": "7.0.4",
   "description": "RedisSMQ Monitor is an application which lets you monitor, debug, and manage your RedisSMQ message queue",
   "author": "Weyoss <weyoss@protonmail.com>",
   "license": "MIT",

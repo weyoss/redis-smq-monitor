@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 7.0.4 (2022-07-12)
+
+* Improve redis-smq peer dependency version syntax (9cc00f8)
+* Fix npm vulnerability warnings (1f8e7c6)
+
 ## 7.0.3 (2022-06-28)
 
 * Fix type-coverage errors (758e692)
