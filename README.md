@@ -21,16 +21,13 @@ The monitor uses and ships with [RedisSMQ Monitor Client](https://github.com/wey
 ## Installation
 
 ```shell
-npm install redis-smq-monitor --save
+npm install redis-smq-common redis-smq redis-smq-monitor --save
 ```
 
-`redis-smq-monitor` requires `redis-smq` to be installed separately. 
+Considerations:
 
-If not installed, do not forget to install a compatible `redis-smq` package as well:
-
-```shell
-npm install redis-smq --save
-```
+- Minimal Node.js version is >= 14 (RedisSMQ Monitor is tested under current active LTS and maintenance LTS Node.js releases).
+- Minimal Redis server version is 2.6.12 (RedisSMQ Monitor is tested under Redis v2.6, v3, v4, v5, and v6).
 
 ## Configuration
 
