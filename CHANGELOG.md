@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 7.0.5 (2022-07-15)
+
+* Update installation info (aacfbb7)
+* Make redis-smq-common as a peer dependency (011c8d9)
+* Bump up typescript to v4.7.4 (f599892)
+
 ## 7.0.4 (2022-07-12)
 
 * Improve redis-smq peer dependency version syntax (9cc00f8)
