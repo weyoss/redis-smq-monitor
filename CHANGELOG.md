@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 7.0.5 (2022-07-20)
+
+* Sync event listeners with redis-smq v7.0.5 updates (fb84d6c)
+* Bump up redis-smq to v7.0.5 (09a4c11)
+
 ## 7.0.5 (2022-07-15)
 
 * Update installation info (aacfbb7)
