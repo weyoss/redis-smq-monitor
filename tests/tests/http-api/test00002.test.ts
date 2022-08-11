@@ -12,6 +12,7 @@ test('Fetching and deleting scheduled messages using the HTTP API: Case 2', asyn
   await createQueue(defaultQueue, false);
 
   const producer = getProducer();
+  await producer.runAsync();
 
   const messages: Message[] = [];
   for (let i = 0; i < 4; i += 1) {

@@ -12,6 +12,7 @@ test('Fetching and deleting scheduled messages using the HTTP API: Case 1', asyn
 
   await startMonitorServer();
   const producer = getProducer();
+  await producer.runAsync();
 
   const msg1 = new Message();
   msg1

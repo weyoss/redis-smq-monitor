@@ -24,6 +24,7 @@ export async function produceMessageWithPriority(
   cfg: IConfig = config,
 ) {
   const producer = promisifyAll(getProducer(cfg));
+  await producer.runAsync();
   const message = new Message();
   message.setPriority(Message.MessagePriority.LOW).setQueue(queue);
   await producer.produceAsync(message);
@@ -35,6 +36,7 @@ export async function produceMessage(
   cfg: IConfig = config,
 ) {
   const producer = getProducer(cfg);
+  await producer.runAsync();
   const message = new Message();
   message.setBody({ hello: 'world' }).setQueue(queue);
   await producer.produceAsync(message);
@@ -54,6 +56,7 @@ export async function produceAndDeadLetterMessage(
     }),
   });
 
+  await producer.runAsync();
   const message = new Message();
   message.setBody({ hello: 'world' }).setQueue(queue);
   await producer.produceAsync(message);
@@ -68,6 +71,7 @@ export async function produceAndAcknowledgeMessage(
   cfg: IConfig = config,
 ) {
   const producer = getProducer(cfg);
+  await producer.runAsync();
   const consumer = getConsumer({
     cfg,
     queue,
@@ -90,6 +94,7 @@ export async function scheduleMessage(
   cfg: IConfig = config,
 ) {
   const producer = promisifyAll(getProducer(cfg));
+  await producer.runAsync();
   const message = new Message();
   message.setScheduledDelay(10000).setQueue(queue);
   await producer.produceAsync(message);
