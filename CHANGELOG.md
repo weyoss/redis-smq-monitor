@@ -1,6 +1,12 @@
 # CHANGELOG
 
-## 7.0.5 (2022-07-20)
+## 7.0.7 (2022-08-11)
+
+* Update tests (53d03cd)
+* Bump up redis-smq-common to v1.0.2 and redis-smq to v7.0.7 (93e1ce7)
+* Update NPM dependencies (43723c5)
+
+## 7.0.6 (2022-07-20)
 
 * Sync event listeners with redis-smq v7.0.5 updates (fb84d6c)
 * Bump up redis-smq to v7.0.5 (09a4c11)
