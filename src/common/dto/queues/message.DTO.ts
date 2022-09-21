@@ -1,5 +1,6 @@
 import {
   Allow,
+  Equals,
   IsBoolean,
   IsInt,
   IsNotEmpty,
@@ -9,8 +10,18 @@ import {
   ValidateNested,
 } from 'class-validator';
 import { Type } from 'class-transformer';
+import {
+  EExchangeType,
+  IDirectExchangeParams,
+  IFanOutExchangeParams,
+  ITopicExchangeParams,
+  TMessageJSON,
+  TMessageState,
+  TQueueParams,
+  TTopicParams,
+} from 'redis-smq/dist/types';
 
-export class MessageQueueDTO {
+export class MessageQueueDTO implements TQueueParams {
   @IsString()
   @IsNotEmpty()
   name!: string;
@@ -20,7 +31,7 @@ export class MessageQueueDTO {
   ns!: string;
 }
 
-export class MessageMetadataDTO {
+export class MessageStateDTO implements TMessageState {
   @IsUUID('4')
   uuid!: string;
 
@@ -51,7 +62,77 @@ export class MessageMetadataDTO {
   expired!: boolean;
 }
 
-export class MessageDTO {
+export class MessageTopicExchangeBindingParamsDTO implements TTopicParams {
+  @IsString()
+  @IsNotEmpty()
+  topic!: string;
+
+  @IsString()
+  @IsNotEmpty()
+  ns!: string;
+}
+
+export class MessageTopicExchangeDTO implements ITopicExchangeParams {
+  @Equals(EExchangeType.TOPIC)
+  type!: number;
+
+  @ValidateNested()
+  @Type(() => MessageQueueDTO)
+  @IsOptional()
+  destinationQueue: MessageQueueDTO | null = null;
+
+  @ValidateNested()
+  @Type((o) =>
+    typeof o?.object['bindingParams'] === 'string'
+      ? String
+      : MessageTopicExchangeBindingParamsDTO,
+  )
+  bindingParams!: MessageTopicExchangeBindingParamsDTO | string;
+
+  @IsString()
+  @IsNotEmpty()
+  exchangeTag!: string;
+}
+
+export class MessageFanOutExchangeDTO implements IFanOutExchangeParams {
+  @Equals(EExchangeType.FANOUT)
+  type!: number;
+
+  @ValidateNested()
+  @Type(() => MessageQueueDTO)
+  @IsOptional()
+  destinationQueue: MessageQueueDTO | null = null;
+
+  @IsString()
+  @IsNotEmpty()
+  bindingParams!: string;
+
+  @IsString()
+  @IsNotEmpty()
+  exchangeTag!: string;
+}
+
+export class MessageDirectExchangeDTO implements IDirectExchangeParams {
+  @Equals(EExchangeType.DIRECT)
+  type!: number;
+
+  @ValidateNested()
+  @Type(() => MessageQueueDTO)
+  @IsOptional()
+  destinationQueue: MessageQueueDTO | null = null;
+
+  @ValidateNested()
+  @Type((o) =>
+    typeof o?.object['bindingParams'] === 'string' ? String : MessageQueueDTO,
+  )
+  bindingParams!: MessageQueueDTO | string;
+
+  @IsString()
+  @IsNotEmpty()
+  exchangeTag!: string;
+}
+
+export class MessageDTO implements TMessageJSON {
   @IsInt()
   createdAt!: number;
 
@@ -90,10 +171,29 @@ export class MessageDTO {
   priority: number | null = null;
 
   @ValidateNested()
-  @Type(() => MessageQueueDTO)
-  queue: MessageQueueDTO | undefined | null;
+  @Type((o) =>
+    typeof o?.object['queue'] === 'string' ? String : MessageQueueDTO,
+  )
+  @IsOptional()
+  queue: MessageQueueDTO | string | null = null;
 
   @ValidateNested()
-  @Type(() => MessageMetadataDTO)
-  metadata: MessageMetadataDTO | undefined | null;
+  @Type(() => MessageStateDTO)
+  @IsOptional()
+  messageState: MessageStateDTO | null = null;
+
+  @ValidateNested()
+  @Type((o) => {
+    if (o?.object['type'] === EExchangeType.FANOUT)
+      return MessageFanOutExchangeDTO;
+    if (o?.object['type'] === EExchangeType.TOPIC)
+      return MessageTopicExchangeDTO;
+    return MessageDirectExchangeDTO;
+  })
+  @IsOptional()
+  exchange:
+    | MessageDirectExchangeDTO
+    | MessageFanOutExchangeDTO
+    | MessageTopicExchangeDTO
+    | null = null;
 }

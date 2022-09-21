@@ -23,14 +23,14 @@ export class ConsumerEventListener implements IEventListener {
 
   protected onMessageAcknowledged = (message: Message): void => {
     this.getMessageRate(
-      message.getRequiredQueue(),
+      message.getDestinationQueue(),
       String(this.consumerId),
     ).incrementAcknowledged();
   };
 
   protected onMessageDeadLettered = (message: Message): void => {
     this.getMessageRate(
-      message.getRequiredQueue(),
+      message.getDestinationQueue(),
       String(this.consumerId),
     ).incrementDeadLettered();
   };

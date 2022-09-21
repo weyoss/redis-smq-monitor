@@ -17,7 +17,7 @@ export class ProducerEventListener implements IEventListener {
   protected eventProvider: EventEmitter | null = null;
 
   protected onMessagePublished = (message: Message): void => {
-    this.producerMessageRate?.incrementPublished(message.getRequiredQueue());
+    this.producerMessageRate?.incrementPublished(message.getDestinationQueue());
   };
 
   init(args: TEventListenerInitArgs, cb: ICallback<void>): void {
