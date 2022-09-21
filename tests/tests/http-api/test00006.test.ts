@@ -17,24 +17,24 @@ test('Fetching queues, namespaces, queue namespaces, deleting namespace', async 
   expect(r1.statusCode).toBe(200);
   expect(r1.body.data).toBeDefined();
   expect(r1.body.data?.length).toBe(1);
-  expect((r1.body.data ?? [])[0]).toEqual(message.getRequiredQueue());
+  expect((r1.body.data ?? [])[0]).toEqual(message.getDestinationQueue());
 
   const r2: ISuperTestResponse<string[]> = await request.get('/api/ns');
   expect(r2.statusCode).toBe(200);
   expect(r2.body.data).toBeDefined();
   expect(r2.body.data?.length).toBe(1);
-  expect((r2.body.data ?? [])[0]).toEqual(message.getRequiredQueue().ns);
+  expect((r2.body.data ?? [])[0]).toEqual(message.getDestinationQueue().ns);
 
   const r3: ISuperTestResponse<TQueueParams[]> = await request.get(
-    `/api/ns/${message.getRequiredQueue().ns}/queues`,
+    `/api/ns/${message.getDestinationQueue().ns}/queues`,
   );
   expect(r3.statusCode).toBe(200);
   expect(r3.body.data).toBeDefined();
   expect(r3.body.data?.length).toBe(1);
-  expect((r3.body.data ?? [])[0]).toEqual(message.getRequiredQueue());
+  expect((r3.body.data ?? [])[0]).toEqual(message.getDestinationQueue());
 
   const r4: ISuperTestResponse<void> = await request.delete(
-    `/api/ns/${message.getRequiredQueue().ns}`,
+    `/api/ns/${message.getDestinationQueue().ns}`,
   );
   expect(r4.status).toEqual(204);
   expect(r4.body.data).toBeUndefined();
@@ -50,7 +50,7 @@ test('Fetching queues, namespaces, queue namespaces, deleting namespace', async 
   expect(r6.body.data?.length).toBe(0);
 
   const r7: ISuperTestResponse<TQueueParams[]> = await request.get(
-    `/api/ns/${message.getRequiredQueue().ns}/queues`,
+    `/api/ns/${message.getDestinationQueue().ns}/queues`,
   );
   expect(r7.statusCode).toBe(200);
   expect(r7.body.data?.length).toBe(0);

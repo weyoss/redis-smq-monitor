@@ -22,7 +22,7 @@ test('Purge acknowledged messages', async () => {
   expect(response1.body.data?.total).toBe(1);
   expect(response1.body.data?.items.length).toBe(1);
   expect(response1.body.data?.items[0].sequenceId).toBe(0);
-  expect(response1.body.data?.items[0].message.metadata?.uuid).toBe(
+  expect(response1.body.data?.items[0].message.messageState?.uuid).toBe(
     message.getRequiredId(),
   );
   const response2: ISuperTestResponse<GetMessagesResponseBodyDataDTO> =
