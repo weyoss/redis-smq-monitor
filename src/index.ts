@@ -41,6 +41,7 @@ import WebsocketMainStreamWorker from './workers/websocket-main-stream.worker';
 import WebsocketOnlineStreamWorker from './workers/websocket-online-stream.worker';
 import WebsocketRateStreamWorker from './workers/websocket-rate-stream.worker';
 import { DefaultEventsMap } from 'socket.io/dist/typed-events';
+import { destroyFanOutExchangeManager } from './lib/fan-out-exchange-manager';
 
 // Fixing type-coverage errors and using [unknown] instead of [any]
 type TSocketIO = SocketIO<
@@ -224,6 +225,7 @@ export class MonitorServer {
       await promisifyAll(this.getRedisClient()).haltAsync();
       await destroyMessageManager();
       await destroyQueueManager();
+      await destroyFanOutExchangeManager();
       registry.reset();
       this.workerRunner = null;
       this.application = null;

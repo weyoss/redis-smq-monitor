@@ -19,21 +19,11 @@ import {
   ITopicExchangeParams,
   TMessageJSON,
   TMessageState,
-  TQueueParams,
   TTopicParams,
 } from 'redis-smq/dist/types';
 import { MessageQueueValidator } from '../../validators/message-queue.validator';
 import { MessageTopicExchangeValidator } from '../../validators/message-topic-exchange.validator';
-
-export class MessageQueueDTO implements TQueueParams {
-  @IsString()
-  @IsNotEmpty()
-  name!: string;
-
-  @IsString()
-  @IsNotEmpty()
-  ns!: string;
-}
+import { MessageQueueDTO } from './message-queue.DTO';
 
 export class MessageStateDTO implements TMessageState {
   @IsUUID('4')
