@@ -14,7 +14,8 @@ export function init(cb: ICallback<void>): void {
     else
       queueManager?.queue.exists(queue, (err, reply) => {
         if (err) cb(err);
-        else if (!reply) queueManager?.queue.create(queue, false, cb);
+        else if (!reply)
+          queueManager?.queue.create(queue, false, (err) => cb(err));
         else cb();
       });
   });
