@@ -1,5 +1,5 @@
 import { promisifyAll } from 'bluebird';
-import { TQueueParams } from 'redis-smq/dist/types';
+import { TQueueParams, TQueueSettings } from 'redis-smq/dist/types';
 import { DeleteQueueRequestDTO } from '../controllers/api/namespaces/queue/delete-queue/delete-queue.request.DTO';
 import { GetNamespaceQueuesRequestDTO } from '../controllers/api/namespaces/get-namespace-queues/get-namespace-queues.request.DTO';
 import { DeleteNamespaceRequestDTO } from '../controllers/api/namespaces/delete-namespace/delete-namespace.request.DTO';
@@ -9,6 +9,7 @@ import { GetRateLimitRequestDTO } from '../controllers/api/namespaces/queue/rate
 import { QueueManager } from 'redis-smq';
 import { getQueueManagerInstance } from '../lib/queue-manager';
 import { TRegistry } from '../lib/registry';
+import { CreateQueueRequestDTO } from '../controllers/api/queues/create-queue/create-queue.request.DTO';
 
 export class QueuesService {
   protected static instance: QueuesService | null = null;
@@ -24,6 +25,14 @@ export class QueuesService {
 
   async getNamespaces(): Promise<string[]> {
     return this.namespace.listAsync();
+  }
+
+  async createQueue(
+    args: CreateQueueRequestDTO,
+  ): Promise<{ queue: TQueueParams; settings: TQueueSettings }> {
+    const { ns, name, enablePriorityQueuing } = args;
+    const queueParams: TQueueParams | string = ns && name ? { name, ns } : name;
+    return this.queue.createAsync(queueParams, enablePriorityQueuing);
   }
 
   async getNamespaceQueues(

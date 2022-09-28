@@ -1,21 +1,12 @@
-import { IsInt, IsNumber, IsOptional, ValidateNested } from 'class-validator';
+import { IsInt, IsOptional, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
-
-export class GetRateLimitResponseBodyDataDTO {
-  @IsNumber()
-  @Type(() => Number)
-  interval!: number;
-
-  @IsNumber()
-  @Type(() => Number)
-  limit!: number;
-}
+import { QueueSettingsRateLimitDTO } from '../../../../../../common/dto/queues/queue-settings-rate-limit.DTO';
 
 export class GetRateLimitResponseBodyDTO {
   @ValidateNested()
-  @Type(() => GetRateLimitResponseBodyDataDTO)
+  @Type(() => QueueSettingsRateLimitDTO)
   @IsOptional()
-  data?: GetRateLimitResponseBodyDataDTO | null = null;
+  data?: QueueSettingsRateLimitDTO | null = null;
 }
 
 export class GetRateLimitResponseDTO {
