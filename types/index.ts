@@ -1,6 +1,5 @@
 import { ServerOptions } from 'socket.io';
-import { TQueueRateLimit } from 'redis-smq/dist/types';
-import { TLoggerConfig, TRedisConfig } from 'redis-smq-common/dist/types';
+import { IConfig, TQueueRateLimit } from 'redis-smq/dist/types';
 
 export type TServerConfig = {
   port?: number;
@@ -9,9 +8,7 @@ export type TServerConfig = {
   basePath?: string;
 };
 
-export type TConfig = {
-  redis?: TRedisConfig;
-  logger?: TLoggerConfig;
+export type TConfig = IConfig & {
   server?: TServerConfig;
 };
 
