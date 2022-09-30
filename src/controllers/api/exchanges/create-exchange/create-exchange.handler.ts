@@ -8,7 +8,7 @@ export const CreateExchangeHandler: TRouteControllerActionHandler<
   CreateExchangeRequestDTO,
   CreateExchangeResponseDTO
 > = () => async (ctx) => {
-  return (await ExchangesService.getInstance(registry)).saveExchange(
+  return (await ExchangesService.getInstance(registry)).createExchange(
     ctx.state.dto,
   );
 };

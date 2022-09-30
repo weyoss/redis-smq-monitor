@@ -1,4 +1,9 @@
-import { IsNotEmpty, IsString, ValidateNested } from 'class-validator';
+import {
+  IsDefined,
+  IsNotEmpty,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
 import { MessageQueueDTO } from '../../../../common/dto/queues/message-queue.DTO';
 import { Type } from 'class-transformer';
 
@@ -9,5 +14,6 @@ export class BindQueueRequestDTO {
 
   @ValidateNested()
   @Type(() => MessageQueueDTO)
+  @IsDefined()
   queue!: MessageQueueDTO;
 }

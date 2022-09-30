@@ -40,11 +40,11 @@ export class ExchangesService {
     return this.fanOutExchangeManager.unbindQueueAsync(queue, e);
   }
 
-  async saveExchange({
+  async createExchange({
     exchangeName,
   }: CreateExchangeRequestDTO): Promise<string[]> {
     const e = new FanOutExchange(exchangeName);
-    await this.fanOutExchangeManager.saveExchangeAsync(e);
+    await this.fanOutExchangeManager.createExchangeAsync(e);
     return this.fanOutExchangeManager.getExchangesAsync();
   }
 
