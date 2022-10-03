@@ -1,11 +1,11 @@
 import { MonitorServer } from '../..';
-import { monitorConfig } from './config';
+import { config } from './config';
 
 let monitorServer: MonitorServer | null = null;
 
 export async function startMonitorServer(): Promise<void> {
   if (!monitorServer) {
-    monitorServer = MonitorServer.createInstance(monitorConfig);
+    monitorServer = MonitorServer.createInstance(config);
     await monitorServer.listen();
   }
 }

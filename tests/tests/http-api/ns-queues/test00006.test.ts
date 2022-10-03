@@ -2,7 +2,7 @@ import * as supertest from 'supertest';
 import { startMonitorServer } from '../../../common/monitor-server';
 import { createQueue, produceMessage } from '../../../common/message-producing';
 import { ISuperTestResponse } from '../../../common/websocket-event';
-import { TQueueParams } from '../redis-smq/dist/types';
+import { TQueueParams } from 'redis-smq/dist/types';
 import { defaultQueue } from '../../../common/common';
 
 test('Fetching queues, namespaces, queue namespaces, deleting namespace', async () => {

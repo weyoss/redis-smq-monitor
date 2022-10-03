@@ -1,8 +1,8 @@
 import * as supertest from 'supertest';
-import { GetRateLimitResponseBodyDataDTO } from '../../../../src/controllers/api/namespaces/queue/rate-limiting/get-rate-limit/get-rate-limit.response.DTO';
 import { startMonitorServer } from '../../../common/monitor-server';
 import { ISuperTestResponse } from '../../../common/websocket-event';
 import { defaultQueue } from '../../../common/common';
+import { QueueSettingsRateLimitDTO } from '../../../../src/common/dto/queues/queue-settings-rate-limit.DTO';
 
 test('Set a queue message consumption rate limit, clear the rate limit, and retrieve a the queue rate limit', async () => {
   await startMonitorServer();
@@ -13,14 +13,14 @@ test('Set a queue message consumption rate limit, clear the rate limit, and retr
   expect(response1.statusCode).toBe(204);
   expect(response1.body).toEqual({});
 
-  const response2: ISuperTestResponse<GetRateLimitResponseBodyDataDTO> =
+  const response2: ISuperTestResponse<QueueSettingsRateLimitDTO> =
     await request.delete(
       `/api/ns/${defaultQueue.ns}/queues/${defaultQueue.name}/rate-limit`,
     );
   expect(response2.statusCode).toBe(204);
   expect(response2.body).toEqual({});
 
-  const response3: ISuperTestResponse<GetRateLimitResponseBodyDataDTO> =
+  const response3: ISuperTestResponse<QueueSettingsRateLimitDTO> =
     await request.get(`/api/ns/${defaultQueue.ns}/queues/my-queue/rate-limit`);
 
   expect(response3.statusCode).toBe(200);
