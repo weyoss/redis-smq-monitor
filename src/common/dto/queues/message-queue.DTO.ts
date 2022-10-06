@@ -1,4 +1,4 @@
-import { TQueueParams } from '../../../../../redis-smq/dist/types';
+import { TQueueParams } from 'redis-smq/dist/types';
 import { IsNotEmpty, IsString } from 'class-validator';
 
 export class MessageQueueDTO implements TQueueParams {
