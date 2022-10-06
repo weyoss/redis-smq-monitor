@@ -1,5 +1,25 @@
 # CHANGELOG
 
+## 7.1.0 (2022-10-06)
+
+* build: bump up redis-smq-monitor-client to v7.1.0 (a8a9885)
+* test: fix test errors (095b1c0)
+* build: fix broken import (e35d23a)
+* build: fix type-coverage warnings (77c3ac3)
+* build: bump up redis-smq to v7.1.0 (e0d00d0)
+* docs: update README.md (604fb8a)
+* test: increase code coverage (d8e624b)
+* fix(ExchangeService): use createExchange() instead of saveExchange() (f80082a)
+* feat(config): add an option for upstream redis-smq configuration (a2738f5)
+* docs(examples): fix typing error (15bc340)
+* feat: allow to create a queue from home page (e0d1401)
+* feat(message-exchange): add ExchangesService and ExchangesController (76f1303)
+* test: reorganize test files (09e92ad)
+* test: increase code coverage (f67428a)
+* refactor(common): improve MessageDTO (aefc927)
+* test: fix broken tests (4584105)
+* feat(message-exchange): pull changes from redis-smq, update codebase (b9d692a)
+
 ## 7.0.7 (2022-08-11)
 
 * Update tests (53d03cd)
