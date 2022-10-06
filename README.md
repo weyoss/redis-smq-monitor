@@ -31,10 +31,14 @@ Considerations:
 
 ## Configuration
 
+The monitor configuration extends [RedisSMQ Configuration](https://github.com/weyoss/redis-smq/blob/master/docs/configuration.md) with additional parameters.
+
 ```javascript
 'use strict';
+const { ConsumerEventListener, ProducerEventListener } = require('redis-smq-monitor');
 
 module.exports = {
+  namespace: 'testing',
   redis: {
     client: 'redis',
     options: {
@@ -56,6 +60,10 @@ module.exports = {
       */
     },
   },
+  eventListeners: {
+    consumerEventListeners: [ConsumerEventListener],
+    producerEventListeners: [ProducerEventListener],
+  },
   server: {
     host: '127.0.0.1',
     port: 3000,
@@ -68,9 +76,15 @@ module.exports = {
 
 **Parameters**
 
+- `namespace` *(string): Optional.* See [RedisSMQ Configuration](https://github.com/weyoss/redis-smq/blob/master/docs/configuration.md#configuration-parameters).
+
+- `messages` *(object): Optional.* See [RedisSMQ Configuration](https://github.com/weyoss/redis-smq/blob/master/docs/configuration.md#configuration-parameters).
+
 - `redis` *(object): Optional.* See [Redis Configuration](https://github.com/weyoss/redis-smq-common/blob/master/docs/redis.md) for more details.
 
 - `logger` *(object): Optional.* See [Logs Configuration](https://github.com/weyoss/redis-smq-common/blob/master/docs/logs.md) for more details.
+
+- `eventListeners` *(object): Optional.* See [Monitor Event Listeners](#monitor-event-listeners).
 
 - `server`*(object): Optional.*
 
