@@ -24,9 +24,13 @@ test('Create a fanout exchange', async () => {
     .send({ exchangeName: 'another-exchange' });
   expect(r3.statusCode).toBe(200);
   expect(r3.body.data).toBeDefined();
-  expect(r3.body.data).toEqual(['my-exchange', 'another-exchange']);
+  expect(r3.body.data?.sort()).toEqual(
+    ['my-exchange', 'another-exchange'].sort(),
+  );
 
   const r4: ISuperTestResponse<string[]> = await request.get('/api/exchanges');
   expect(r4.statusCode).toBe(200);
-  expect(r4.body.data).toEqual(['my-exchange', 'another-exchange']);
+  expect(r4.body.data?.sort()).toEqual(
+    ['my-exchange', 'another-exchange'].sort(),
+  );
 });
