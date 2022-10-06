@@ -42,25 +42,30 @@ test('Message DTO: queue', async () => {
   };
   await validateDTO(MessageDTO, msg);
 
+  // type-coverage:ignore-next-line
   msg.queue = 123;
   await expect(async () => validateDTO(MessageDTO, msg)).rejects.toBeInstanceOf(
     ValidationError,
   );
 
+  // type-coverage:ignore-next-line
   msg.queue = true;
   await expect(async () => validateDTO(MessageDTO, msg)).rejects.toBeInstanceOf(
     ValidationError,
   );
 
+  // type-coverage:ignore-next-line
   msg.queue = null;
   await validateDTO(MessageDTO, msg);
 
+  // type-coverage:ignore-next-line
   msg.queue = {
     ns: 'ns1',
     name: 'queue1',
   };
   await validateDTO(MessageDTO, msg);
 
+  // type-coverage:ignore-next-line
   msg.queue = {
     ns: 'ns1',
     q: 'queue1',

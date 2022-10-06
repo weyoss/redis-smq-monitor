@@ -169,7 +169,9 @@ export class MessageDTO implements TMessageJSON {
 
   @ValidateNested()
   @Type((o) => {
+    // type-coverage:ignore-next-line
     if (o && o.object.exchange) {
+      // type-coverage:ignore-next-line
       const type: unknown = o.object.exchange.type;
       if (type === EExchangeType.FANOUT) return MessageFanOutExchangeDTO;
       if (type === EExchangeType.TOPIC) return MessageTopicExchangeDTO;

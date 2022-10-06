@@ -40,11 +40,13 @@ test('Message DTO: exchange', async () => {
   };
   await validateDTO(MessageDTO, msg);
 
+  // type-coverage:ignore-next-line
   msg.exchange.bindingParams = null;
   await expect(async () => validateDTO(MessageDTO, msg)).rejects.toBeInstanceOf(
     ValidationError,
   );
 
+  // type-coverage:ignore-next-line
   msg.exchange = {
     destinationQueue: {
       name: 'queue_1663609095187',
@@ -60,12 +62,15 @@ test('Message DTO: exchange', async () => {
     ValidationError,
   );
 
+  // type-coverage:ignore-next-line
   msg.exchange.bindingParams.topic = 'topic';
   await validateDTO(MessageDTO, msg);
 
+  // type-coverage:ignore-next-line
   msg.exchange = null;
   await validateDTO(MessageDTO, msg);
 
+  // type-coverage:ignore-next-line
   msg.exchange = {
     destinationQueue: {
       name: 'queue_1663609095187',
@@ -81,6 +86,7 @@ test('Message DTO: exchange', async () => {
     ValidationError,
   );
 
+  // type-coverage:ignore-next-line
   msg.exchange.bindingParams = 'my_fanout';
   await validateDTO(MessageDTO, msg);
 });
