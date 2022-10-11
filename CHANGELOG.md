@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 7.1.1 (2022-10-11)
+
+* build: bump up redis-smq to v7.1.1 (c78a291)
+* build: bump up redis-smq-monitor-client to v7.1.1 (f8f61d0)
+* Fix(ConsumerEventListener): fix event listener memory leak (35b26b3)
+
 ## 7.1.0 (2022-10-06)
 
 * build: bump up redis-smq-monitor-client to v7.1.0 (a8a9885)
