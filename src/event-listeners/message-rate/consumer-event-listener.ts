@@ -17,7 +17,7 @@ import { EventEmitter } from 'events';
 
 export class ConsumerEventListener implements IEventListener {
   protected consumerId: string | null = null;
-  protected consumerMessageRate = new Map<TQueueParams, ConsumerMessageRate>();
+  protected consumerMessageRate: Record<string, ConsumerMessageRate> = {};
   protected redisClient: RedisClient | null = null;
   protected eventProvider: EventEmitter | null = null;
 
@@ -39,7 +39,8 @@ export class ConsumerEventListener implements IEventListener {
     queue: TQueueParams,
     consumerId: string,
   ): ConsumerMessageRate {
-    let messageRate = this.consumerMessageRate.get(queue);
+    const key = `${queue.name}@${queue.ns}`;
+    let messageRate = this.consumerMessageRate[key];
     if (!messageRate) {
       const redisClient = this.getRedisClient();
       this.redisClient = redisClient;
@@ -49,7 +50,7 @@ export class ConsumerEventListener implements IEventListener {
         consumerId,
       );
       messageRate = new ConsumerMessageRate(writer);
-      this.consumerMessageRate.set(queue, messageRate);
+      this.consumerMessageRate[key] = messageRate;
     }
     return messageRate;
   }
@@ -94,13 +95,13 @@ export class ConsumerEventListener implements IEventListener {
     async.waterfall(
       [
         (cb: ICallback<void>) => {
-          async.eachOf(
-            [...this.consumerMessageRate.values()],
-            (messageRate, idx, done) => messageRate.quit(done),
+          async.eachIn(
+            this.consumerMessageRate,
+            (messageRate, key, done) => messageRate.quit(done),
             (err) => {
               if (err) cb(err);
               else {
-                this.consumerMessageRate.clear();
+                this.consumerMessageRate = {};
                 cb();
               }
             },
