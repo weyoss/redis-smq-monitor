@@ -3,11 +3,12 @@
 ## Table of Content
 
 1. Queues & Namespaces
-   1. [GET /api/queues](#get-apiqueues)
-   2. [GET /api/ns](#get-apins)
-   3. [DELETE /api/ns/:ns](#delete-apinsns)
-   4. [GET /api/ns/:ns/queues](#get-apinsnsqueues)
-   5. [DELETE /api/ns/:ns/queues/:queueName](#delete-apinsnsqueuesqueuename)
+   1. [POST /api/queues](#post-apiqueues)
+   2. [GET /api/queues](#get-apiqueues)
+   3. [GET /api/ns](#get-apins)
+   4. [DELETE /api/ns/:ns](#delete-apinsns)
+   5. [GET /api/ns/:ns/queues](#get-apinsnsqueues)
+   6. [DELETE /api/ns/:ns/queues/:queueName](#delete-apinsnsqueuesqueuename)
 2. Acknowledged Messages
    1. [GET /api/ns/:ns/queues/:queueName/acknowledged-messages](#get-apinsnsqueuesqueuenameacknowledged-messages)
    2. [DELETE /api/ns/:ns/queues/:queueName/acknowledged-messages](#delete-apinsnsqueuesqueuenameacknowledged-messages)
@@ -32,6 +33,41 @@
    3. [DELETE /api/ns/:ns/queues/:queueName/rate-limit](#delete-apinsnsqueuesqueuenamerate-limit)
    
 ## Queues
+
+### POST /api/queues
+
+**JSON Body properties**
+
+* `name` *(string): Required.* Queue name.
+* `ns` *(string): Optional.* Queue namespace.
+* `enablePriorityQueuing` *(boolean): Required* Enable/disable priority queuing.
+
+Example:
+
+```json
+
+{
+   "name": "my-queue",
+   "enablePriorityQueuing": false
+}
+
+```
+
+**Response Body**
+
+```json
+{
+   "queue": {
+      "name": "my-queue",
+      "ns": "default"
+   },
+   "settings": {
+      "priorityQueuing": false,
+      "rateLimit": null,
+      "exchange":null
+   }
+}
+```
 
 ### GET /api/queues
 
