@@ -31,7 +31,14 @@
    1. [POST /api/ns/:ns/queues/:queueName/rate-limit](#post-apinsnsqueuesqueuenamerate-limit)
    2. [GET /api/ns/:ns/queues/:queueName/rate-limit](#get-apinsnsqueuesqueuenamerate-limit)
    3. [DELETE /api/ns/:ns/queues/:queueName/rate-limit](#delete-apinsnsqueuesqueuenamerate-limit)
-   
+7. Fanout Exchanges
+   1. [GET /api/exchanges](#get-apiexchanges)
+   2. [POST /api/exchanges](#post-apiexchanges)
+   3. [DELETE /api/exchanges/:exchangeName](#delete-apiexchangesexchangename)
+   4. [GET /api/exchanges/:exchangeName/queues](#get-apiexchangesexchangenamequeues)
+   5. [POST /api/exchanges/:exchangeName/bind](#post-apiexchangesexchangenamebind)
+   6. [POST /api/exchanges/:exchangeName/unbind](#post-apiexchangesexchangenameunbind)
+
 ## Queues
 
 ### POST /api/queues
@@ -593,6 +600,131 @@ Otherwise:
 
 * `ns` (string): Required. Queue namespace.
 * `queueName` (string): Required. Queue name.
+
+**Response Body**
+
+```text
+204 No Content
+```
+
+## Fanout Exchanges
+
+### GET /api/exchanges
+
+**Response body**
+
+```json
+{
+   "data": [
+      "my-exchange-1",
+      "my-exchange-2"
+   ]
+}
+```
+
+### POST /api/exchanges
+
+**JSON Body properties**
+
+* `exchangeName` *(string): Required.* Fanout exchange name.
+
+Example:
+
+```json
+
+{
+   "exchangeName": "my-exchange-3"
+}
+
+```
+
+**Response Body**
+
+```json
+{
+   "data": [
+      "my-exchange-1",
+      "my-exchange-2",
+      "my-exchange-3"
+   ]
+}
+```
+
+### DELETE /api/exchanges/:exchangeName
+
+**Response body**
+
+```json
+{
+   "data": [
+      "my-exchange-1",
+      "my-exchange-2"
+   ]
+}
+```
+
+### GET /api/exchanges/:exchangeName/queues
+
+**Response body**
+
+```json
+{
+   "data": [
+      {
+         "ns": "my-application",
+         "name": "notifications"
+      }
+   ]
+}
+```
+
+### POST /api/exchanges/:exchangeName/bind
+
+**JSON Body properties**
+
+* `queue` *(object): Required.*
+  * `name` *(string): Required.* Queue name.
+  * `ns` *(string): Optional.* Queue namespace.
+  
+Example:
+
+```json
+
+{
+   "queue": {
+      "name": "orders",
+      "ns": "my-application"
+   }
+}
+
+```
+
+**Response Body**
+
+```text
+204 No Content
+```
+
+### POST /api/exchanges/:exchangeName/unbind
+
+**JSON Body properties**
+
+* `queue` *(object): Required.*
+   * `name` *(string): Required.* Queue name.
+   * `ns` *(string): Optional.* Queue namespace.
+
+Example:
+
+```json
+
+{
+   "queue": {
+      "name": "orders",
+      "ns": "my-application"
+   }
+}
+
+```
 
 **Response Body**
 
