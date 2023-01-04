@@ -7,9 +7,9 @@
 
 <p>
     <a href="https://github.com/weyoss/redis-smq-monitor/actions/workflows/tests.yml"><img src="https://github.com/weyoss/redis-smq-monitor/actions/workflows/tests.yml/badge.svg" alt="Tests" style="max-width:100%;" /></a>
-    <a href="https://npmjs.org/package/redis-smq-monitor" rel="nofollow"><img src="https://img.shields.io/npm/v/redis-smq-monitor.svg" alt="NPM version" /></a>
+    <a href="https://github.com/weyoss/redis-smq-monitor/actions/workflows/codeql.yml" rel="nofollow"><img src="https://github.com/weyoss/redis-smq-monitor/actions/workflows/codeql.yml/badge.svg" alt="Code quality" /></a>
     <a href="https://codecov.io/github/weyoss/redis-smq-monitor?branch=master" rel="nofollow"><img src="https://img.shields.io/codecov/c/github/weyoss/redis-smq-monitor" alt="Coverage Status" /></a>
-    <a href="https://lgtm.com/projects/g/weyoss/redis-smq-monitor/context:javascript" rel="nofollow"><img src="https://img.shields.io/lgtm/grade/javascript/github/weyoss/redis-smq-monitor.svg?logo=lgtm&logoWidth=18" alt="Code quality" /></a>
+    <a href="https://npmjs.org/package/redis-smq-monitor" rel="nofollow"><img src="https://img.shields.io/npm/v/redis-smq-monitor.svg" alt="NPM version" /></a>
 </p>
 
 RedisSMQ Monitor is an application which lets you monitor, debug, and manage [RedisSMQ message queue](https://github.com/weyoss/redis-smq).
