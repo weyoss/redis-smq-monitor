@@ -3,7 +3,7 @@ import { Type } from 'class-transformer';
 import { MessageQueueDTO } from '../../../../common/dto/queues/message-queue.DTO';
 import { QueueSettingsDTO } from '../../../../common/dto/queues/queue-settings.DTO';
 
-export class CreateQueueResponseBodyDataDTO {
+export class SaveQueueResponseBodyDataDTO {
   @ValidateNested()
   @Type(() => MessageQueueDTO)
   queue!: MessageQueueDTO;
@@ -15,11 +15,11 @@ export class CreateQueueResponseBodyDataDTO {
 
 export class CreateQueueResponseBodyDTO {
   @ValidateNested()
-  @Type(() => CreateQueueResponseBodyDataDTO)
-  data!: CreateQueueResponseBodyDataDTO;
+  @Type(() => SaveQueueResponseBodyDataDTO)
+  data!: SaveQueueResponseBodyDataDTO;
 }
 
-export class CreateQueueResponseDTO {
+export class SaveQueueResponseDTO {
   @IsInt()
   status!: number;
 

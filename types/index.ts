@@ -1,5 +1,5 @@
 import { ServerOptions } from 'socket.io';
-import { IConfig, TQueueRateLimit } from 'redis-smq/dist/types';
+import { EQueueType, IConfig, TQueueRateLimit } from 'redis-smq/dist/types';
 
 export type TServerConfig = {
   port?: number;
@@ -34,6 +34,7 @@ export type TWebsocketMainStreamPayloadQueue = {
   ns: string;
   name: string;
   priorityQueuing: boolean;
+  type: EQueueType;
   rateLimit: TQueueRateLimit | null;
   deadLetteredMessagesCount: number;
   acknowledgedMessagesCount: number;

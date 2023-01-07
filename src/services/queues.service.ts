@@ -9,7 +9,7 @@ import { GetRateLimitRequestDTO } from '../controllers/api/namespaces/queue/rate
 import { QueueManager } from 'redis-smq';
 import { getQueueManagerInstance } from '../lib/queue-manager';
 import { TRegistry } from '../lib/registry';
-import { CreateQueueRequestDTO } from '../controllers/api/queues/create-queue/create-queue.request.DTO';
+import { SaveQueueRequestDTO } from '../controllers/api/queues/save-queue/save-queue.request.DTO';
 
 export class QueuesService {
   protected static instance: QueuesService | null = null;
@@ -27,12 +27,12 @@ export class QueuesService {
     return this.namespace.listAsync();
   }
 
-  async createQueue(
-    args: CreateQueueRequestDTO,
+  async saveQueue(
+    args: SaveQueueRequestDTO,
   ): Promise<{ queue: TQueueParams; settings: TQueueSettings }> {
-    const { ns, name, enablePriorityQueuing } = args;
+    const { ns, name, type } = args;
     const queueParams: TQueueParams | string = ns && name ? { name, ns } : name;
-    return this.queue.createAsync(queueParams, enablePriorityQueuing);
+    return this.queue.saveAsync(queueParams, type);
   }
 
   async getNamespaceQueues(

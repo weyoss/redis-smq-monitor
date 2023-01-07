@@ -6,9 +6,9 @@ import {
 import { GetQueuesHandler } from './get-queues/get-queues.handler';
 import { GetQueuesRequestDTO } from './get-queues/get-queues.request.DTO';
 import { GetQueuesResponseDTO } from './get-queues/get-queues.response.DTO';
-import { CreateQueueHandler } from './create-queue/create-queue.handler';
-import { CreateQueueRequestDTO } from './create-queue/create-queue.request.DTO';
-import { CreateQueueResponseDTO } from './create-queue/create-queue.response.DTO';
+import { SaveQueueHandler } from './save-queue/save-queue.handler';
+import { SaveQueueRequestDTO } from './save-queue/save-queue.request.DTO';
+import { SaveQueueResponseDTO } from './save-queue/save-queue.response.DTO';
 
 export const queuesController: IRouteController = {
   path: '/queues',
@@ -17,9 +17,9 @@ export const queuesController: IRouteController = {
       path: '/',
       method: ERouteControllerActionMethod.POST,
       payload: [ERouteControllerActionPayload.BODY],
-      Handler: CreateQueueHandler,
-      RequestDTO: CreateQueueRequestDTO,
-      ResponseDTO: CreateQueueResponseDTO,
+      Handler: SaveQueueHandler,
+      RequestDTO: SaveQueueRequestDTO,
+      ResponseDTO: SaveQueueResponseDTO,
     },
     {
       path: '/',

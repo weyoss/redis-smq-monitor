@@ -1,6 +1,7 @@
-import { TQueueSettings } from 'redis-smq/dist/types';
+import { EQueueType, TQueueSettings } from 'redis-smq/dist/types';
 import {
   IsBoolean,
+  IsEnum,
   IsOptional,
   IsString,
   ValidateNested,
@@ -11,6 +12,9 @@ import { Type } from 'class-transformer';
 export class QueueSettingsDTO implements TQueueSettings {
   @IsBoolean()
   priorityQueuing!: boolean;
+
+  @IsEnum(EQueueType)
+  type!: number;
 
   @ValidateNested()
   @Type(() => QueueSettingsRateLimitDTO)

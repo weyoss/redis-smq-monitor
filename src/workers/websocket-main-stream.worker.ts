@@ -38,7 +38,7 @@ export class WebsocketMainStreamWorker extends Worker {
     settings: TQueueSettings,
   ): TWebsocketMainStreamPayloadQueue => {
     const { ns, name } = queue;
-    const { priorityQueuing, rateLimit } = settings;
+    const { priorityQueuing, rateLimit, type } = settings;
     if (!this.data.queues[ns]) {
       this.data.queues[ns] = {};
     }
@@ -48,6 +48,7 @@ export class WebsocketMainStreamWorker extends Worker {
         name,
         ns,
         priorityQueuing,
+        type,
         rateLimit: rateLimit ?? null,
         deadLetteredMessagesCount: 0,
         acknowledgedMessagesCount: 0,
