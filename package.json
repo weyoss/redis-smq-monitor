@@ -44,7 +44,7 @@
     "koa": "2.13.3",
     "koa-bodyparser": "4.3.0",
     "lodash": "4.17.21",
-    "redis-smq-monitor-client": "7.1.1",
+    "redis-smq-monitor-client": "7.2.0",
     "reflect-metadata": "0.1.13",
     "socket.io": "4.5.4",
     "stoppable": "1.1.0",
