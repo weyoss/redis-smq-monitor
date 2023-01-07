@@ -4,6 +4,7 @@ import { TWebsocketMainStreamPayload } from '../../../types';
 import { createQueue } from '../../common/message-producing';
 import { getConsumer } from '../../common/consumers';
 import { defaultQueue } from '../../common/common';
+import { EQueueType } from 'redis-smq/dist/types';
 
 test('WebsocketMainStreamWorker: Case 2', async () => {
   await createQueue(defaultQueue, false);
@@ -35,6 +36,7 @@ test('WebsocketMainStreamWorker: Case 2', async () => {
           name: 'test_queue',
           ns: 'testing',
           priorityQueuing: false,
+          type: EQueueType.LIFO_QUEUE,
           rateLimit: null,
           deadLetteredMessagesCount: 0,
           acknowledgedMessagesCount: 0,
