@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 7.2.1 (2023-01-07)
+
+* fix: fix 'fsevents not accessible from jest-haste-map' (3648b68)
+
 ## 7.2.0 (2023-01-07)
 
 * build: bump up redis-smq-monitor-client to 7.2.0 (557266c)
