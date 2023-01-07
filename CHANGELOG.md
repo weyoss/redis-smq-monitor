@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## 7.2.0 (2023-01-07)
+
+* build: bump up redis-smq-monitor-client to 7.2.0 (557266c)
+* docs(http-api): update docs (3a640c2)
+* test: update tests (bff1b57)
+* feat: add support for FIFO queues (fc078cc)
+* build: bump up socket.io to 4.5.4 (55d479f)
+* build: bump up redis-smq to v7.2.0 and redis-smq-common to v1.0.5 (fd4a9bf)
+* chore: update license (568415c)
+* docs(readme): use code quality badge (4db4f38)
+* build: migrate from lgtm to github code scanning (2f439d7)
+* docs(exchanges): document missing HTTP endpoints (a4325b8)
+* docs(queues): document missing HTTP endpoints (e6cef0b)
+
 ## 7.1.1 (2022-10-11)
 
 * build: bump up redis-smq to v7.1.1 (c78a291)
