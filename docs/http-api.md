@@ -47,15 +47,14 @@
 
 * `name` *(string): Required.* Queue name.
 * `ns` *(string): Optional.* Queue namespace.
-* `enablePriorityQueuing` *(boolean): Required* Enable/disable priority queuing.
+* `type` *(number): Required* Queue type.
 
 Example:
 
 ```json
-
 {
    "name": "my-queue",
-   "enablePriorityQueuing": false
+   "type": 0
 }
 
 ```
@@ -70,6 +69,7 @@ Example:
    },
    "settings": {
       "priorityQueuing": false,
+      "type": 0,
       "rateLimit": null,
       "exchange":null
    }
