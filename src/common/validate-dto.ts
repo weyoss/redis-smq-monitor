@@ -10,6 +10,7 @@ export async function validateDTO<T extends Record<string, any>>(
     stopAtFirstError: true,
     // See https://github.com/typestack/class-validator/issues/305#issuecomment-504778830
     // forbidUnknownValues: true,
+    forbidUnknownValues: false,
     whitelist: true,
     forbidNonWhitelisted: true,
   });
