@@ -5,17 +5,15 @@ import { shutdownConsumers } from './consumers';
 import { shutdownProducers } from './producers';
 import { stopMonitorServer } from './monitor-server';
 import { stopTimeSeriesWorker } from './time-series-clean-up-worker';
-import { stopWebsocketHeartbeatStreamWorker } from './websocket-heartbeat-stream-worker';
 import { stopWebsocketMainStreamWorker } from './websocket-main-stream-worker';
-import { stopWebsocketOnlineStreamWorker } from './websocket-online-stream-worker';
+import { stopWebsocketConsumersStreamWorker } from './websocket-consumers-stream-worker';
 import { stopWebsocketRateStreamWorker } from './websocket-rate-stream-worker';
 
 export async function shutDown(): Promise<void> {
   await stopMonitorServer();
   await stopTimeSeriesWorker();
-  await stopWebsocketHeartbeatStreamWorker();
   await stopWebsocketMainStreamWorker();
-  await stopWebsocketOnlineStreamWorker();
+  await stopWebsocketConsumersStreamWorker();
   await stopWebsocketRateStreamWorker();
   await shutdownConsumers();
   await shutdownProducers();
