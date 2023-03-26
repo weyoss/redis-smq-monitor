@@ -7,6 +7,10 @@ import { async, errors, RedisClient, Worker } from 'redis-smq-common';
 import { ICallback } from 'redis-smq-common/dist/types';
 import { Consumer, MessageManager, QueueManager } from 'redis-smq';
 
+/**
+ * Provides the following streams:
+ * - streamMain
+ */
 export class WebsocketMainStreamWorker extends Worker {
   protected data: TWebsocketMainStreamPayload = {
     scheduledMessagesCount: 0,
@@ -155,7 +159,7 @@ export class WebsocketMainStreamWorker extends Worker {
     queue: TQueueParams,
     cb: ICallback<void>,
   ): void => {
-    Consumer.countOnlineConsumers(this.redisClient, queue, (err, reply) => {
+    Consumer.countQueueConsumers(this.redisClient, queue, (err, reply) => {
       if (err) cb(err);
       else {
         const { ns, name } = queue;

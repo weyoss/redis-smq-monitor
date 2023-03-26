@@ -12,8 +12,8 @@ export type TConfig = IConfig & {
   server?: TServerConfig;
 };
 
-export type TWebsocketHeartbeatOnlineIdsStreamPayload = {
-  consumers: string[];
+export type TWebsocketQueueOnlineConsumerIdsStreamPayload = {
+  ids: string[];
 };
 
 export type TWebsocketMainStreamPayload = {

@@ -110,7 +110,7 @@ export class TimeSeriesCleanUpWorker extends Worker {
           async.eachOf(
             queues,
             (queue, _, done) => {
-              Consumer.getOnlineConsumerIds(
+              Consumer.getQueueConsumerIds(
                 this.redisClient,
                 queue,
                 (err, reply) => {

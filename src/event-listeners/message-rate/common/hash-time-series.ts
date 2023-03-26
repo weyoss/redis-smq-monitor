@@ -39,6 +39,8 @@ export class HashTimeSeries extends TimeSeries<IHashTimeSeriesParams> {
       this.indexKey,
       '-inf',
       `${max}`,
+      0,
+      100,
       (err, reply) => {
         if (err) cb(err);
         else if (reply && reply.length) {

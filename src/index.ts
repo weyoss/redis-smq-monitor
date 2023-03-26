@@ -36,9 +36,8 @@ import {
   getMessageManagerInstance,
 } from './lib/message-manager';
 import TimeSeriesCleanUpWorker from './workers/time-series.clean-up.worker';
-import WebsocketHeartbeatStreamWorker from './workers/websocket-heartbeat-stream.worker';
 import WebsocketMainStreamWorker from './workers/websocket-main-stream.worker';
-import WebsocketOnlineStreamWorker from './workers/websocket-online-stream.worker';
+import WebsocketConsumersStreamWorker from './workers/websocket-consumers-stream.worker';
 import WebsocketRateStreamWorker from './workers/websocket-rate-stream.worker';
 import { DefaultEventsMap } from 'socket.io/dist/typed-events';
 import { destroyFanOutExchangeManager } from './lib/fan-out-exchange-manager';
@@ -173,9 +172,6 @@ export class MonitorServer {
       new TimeSeriesCleanUpWorker(redisClient, queueManager, true),
     );
     this.workerRunner.addWorker(
-      new WebsocketHeartbeatStreamWorker(redisClient, true),
-    );
-    this.workerRunner.addWorker(
       new WebsocketMainStreamWorker(
         redisClient,
         messageManager,
@@ -184,7 +180,7 @@ export class MonitorServer {
       ),
     );
     this.workerRunner.addWorker(
-      new WebsocketOnlineStreamWorker(redisClient, queueManager, true),
+      new WebsocketConsumersStreamWorker(redisClient, queueManager, true),
     );
     this.workerRunner.addWorker(
       new WebsocketRateStreamWorker(redisClient, queueManager, true),

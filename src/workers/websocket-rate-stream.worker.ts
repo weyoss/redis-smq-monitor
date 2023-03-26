@@ -11,6 +11,17 @@ import { async, RedisClient, Worker } from 'redis-smq-common';
 import { ICallback } from 'redis-smq-common/dist/types';
 import { QueueManager, Consumer } from 'redis-smq';
 
+/**
+ * Provides the following streams:
+ * - streamConsumerAcknowledged:${consumerId}
+ * - streamConsumerDeadLettered:${consumerId}
+ * - streamQueueAcknowledged:${queue.ns}:${queue.name}
+ * - streamQueueDeadLettered:${queue.ns}:${queue.name}
+ * - streamQueuePublished:${queue.ns}:${queue.name}
+ * - streamGlobalAcknowledged
+ * - streamGlobalDeadLettered
+ * - streamGlobalPublished
+ */
 export class WebsocketRateStreamWorker extends Worker {
   protected timestamp = 0;
   protected queueManager: QueueManager;
@@ -176,7 +187,7 @@ export class WebsocketRateStreamWorker extends Worker {
     async.each(
       queues,
       (queueParams, idx, done) => {
-        Consumer.getOnlineConsumerIds(
+        Consumer.getQueueConsumerIds(
           this.redisClient,
           queueParams,
           (err, ids) => {
