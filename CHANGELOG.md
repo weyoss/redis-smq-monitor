@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 7.3.0 (2023-03-26)
+
+* build: bump up redis-smq-monitor-client to v7.3.0 (5c47def)
+* test(workers): update tests (648f2d5)
+* feat(workers): implement WebsocketConsumersStreamWorker (3801fd1)
+* build: bump up redis-smq to v7.2.3, redis-smq-common to v2.0.0 (dd2c614)
+* fix: restore old class-validator behavior (583e64f)
+* build: fix npm vulnerability warnings (d4266fe)
+
 ## 7.2.1 (2023-01-07)
 
 * fix: fix 'fsevents not accessible from jest-haste-map' (3648b68)
