@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 7.3.1 (2023-05-04)
+
+* build: install minimatch@9 to fix type-coverage errors (128fbb0)
+* build: bump up redis-smq-monitor-client to v7.3.1 (e7705c7)
+* build: bump up socket.io to v4.6.1 (58cb730)
+
 ## 7.3.0 (2023-03-26)
 
 * build: bump up redis-smq-monitor-client to v7.3.0 (5c47def)
