@@ -3,11 +3,19 @@
   <p>A simple high-performance Redis message queue for Node.js.</p>
 </div>
 
+> **Important Notice**
+> 
+> This repository has been archived and is no longer maintained. The RedisSMQ Monitor functionality has been moved to the main [redis-smq repository](https://github.com/weyoss/redis-smq). Please refer to the main repository for the latest updates and documentation.
+>
+> **What this means:**
+> 
+> - No further issues or pull requests will be accepted in this repository
+> - All future updates and improvements will be made in the main redis-smq repository
+> - Please direct all questions and contributions to the main repository
+
 # RedisSMQ Monitor
 
 <p>
-    <a href="https://github.com/weyoss/redis-smq-monitor/actions/workflows/tests.yml"><img src="https://github.com/weyoss/redis-smq-monitor/actions/workflows/tests.yml/badge.svg" alt="Tests" style="max-width:100%;" /></a>
-    <a href="https://github.com/weyoss/redis-smq-monitor/actions/workflows/codeql.yml" rel="nofollow"><img src="https://github.com/weyoss/redis-smq-monitor/actions/workflows/codeql.yml/badge.svg" alt="Code quality" /></a>
     <a href="https://codecov.io/github/weyoss/redis-smq-monitor?branch=master" rel="nofollow"><img src="https://img.shields.io/codecov/c/github/weyoss/redis-smq-monitor" alt="Coverage Status" /></a>
     <a href="https://npmjs.org/package/redis-smq-monitor" rel="nofollow"><img src="https://img.shields.io/npm/v/redis-smq-monitor.svg" alt="NPM version" /></a>
 </p>
